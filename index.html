@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#050F4B" />
+  <meta name="description" content="Tableau de bord de la consommation énergétique — analyse interactive des dépenses en eau, gaz et électricité sur 11 immeubles et 5 grandes villes d'Algérie, en dinars algériens." />
+  <title>Tableau de bord énergétique · Algérie</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%230B8A4B'/%3E%3Crect x='16' width='16' height='32' fill='%23F6F4E9'/%3E%3Ccircle cx='16' cy='16' r='7' fill='%23D21034'/%3E%3Ccircle cx='18.4' cy='14.6' r='5.8' fill='%230B8A4B'/%3E%3Cpath d='M20.4 12.6l1 2 2.2.3-1.6 1.5.4 2.2-2-1.1-2 1.1.4-2.2-1.7-1.5 2.2-.3Z' fill='%23D21034'/%3E%3C/svg%3E" />
+  <link rel="stylesheet" href="./assets/css/app.css" />
+</head>
+<body>
+  <a class="skip-link" href="#view">Aller au tableau de bord</a>
+  <div class="ambient" aria-hidden="true"></div>
+
+  <div class="app">
+    <aside class="rail">
+      <a class="brand" href="#/overview" aria-label="EnergyScope — vue d'ensemble">
+        <span class="brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 4.5 13.5H11l-1 8.5L19.5 10H13l1-8Z"/></svg>
+        </span>
+        <span class="brand-text">
+          <strong>EnergyScope</strong>
+          <span>Intelligence énergétique · DZ</span>
+        </span>
+      </a>
+
+      <p class="rail-label">Espace de travail</p>
+      <nav class="nav" aria-label="Pages du tableau de bord">
+        <a class="nav-item" href="#/overview" data-nav="overview">
+          <span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.6"/><rect x="14" y="3" width="7" height="7" rx="1.6"/><rect x="3" y="14" width="7" height="7" rx="1.6"/><rect x="14" y="14" width="7" height="7" rx="1.6"/></svg></span>
+          <span class="nav-text">Vue d'ensemble</span>
+          <span class="nav-dot" aria-hidden="true"></span>
+        </a>
+        <a class="nav-item" href="#/water" data-nav="water">
+          <span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2.5S5.5 9.4 5.5 14a6.5 6.5 0 0 0 13 0C18.5 9.4 12 2.5 12 2.5Z"/></svg></span>
+          <span class="nav-text">Eau</span>
+          <span class="nav-dot" aria-hidden="true"></span>
+        </a>
+        <a class="nav-item" href="#/gas" data-nav="gas">
+          <span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.4-.5-2-1-3-1.1-2.1-.2-4 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.2.4-2.3 1-3a2.5 2.5 0 0 0 2.5 2.5Z"/></svg></span>
+          <span class="nav-text">Gaz</span>
+          <span class="nav-dot" aria-hidden="true"></span>
+        </a>
+        <a class="nav-item" href="#/electricity" data-nav="electricity">
+          <span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 4.5 13.5H11l-1 8.5L19.5 10H13l1-8Z"/></svg></span>
+          <span class="nav-text">Électricité</span>
+          <span class="nav-dot" aria-hidden="true"></span>
+        </a>
+      </nav>
+
+      <div class="rail-foot">
+        <div class="source-card">
+          <span class="source-eyebrow">Source des données</span>
+          <strong>Consommations énergétiques</strong>
+          <span class="source-meta" id="sourceMeta">1 584 enregistrements · 2016–2019</span>
+          <div class="source-bar" aria-hidden="true"><i></i></div>
+          <span class="source-badge"><span class="live-dot" aria-hidden="true"></span> Nettoyé · 100 % complet</span>
+        </div>
+        <p class="rail-note">Contexte algérien · ADE / Sonelgaz</p>
+      </div>
+    </aside>
+
+    <main class="main">
+      <header class="topbar">
+        <div class="topbar-left">
+          <p class="crumbs"><span>Portefeuille</span><i>/</i><strong id="crumb">Vue d'ensemble</strong></p>
+          <h1 id="pageTitle">Vue d'ensemble</h1>
+        </div>
+        <div class="topbar-right">
+          <div class="range-pill" id="rangePill">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" aria-hidden="true"><rect x="3" y="4.5" width="18" height="16" rx="3"/><path d="M3 9.5h18M8 2.5v4M16 2.5v4"/></svg>
+            <span>janvier 2016 — décembre 2019</span>
+          </div>
+          <div class="scope-pill" id="scopePill">5 villes · 11 immeubles</div>
+          <div class="currency-pill" id="currencyPill" title="Taux de référence : 1 USD = 145 DZD">DZD</div>
+        </div>
+      </header>
+
+      <div id="view" class="view" tabindex="-1"></div>
+    </main>
+  </div>
+
+  <div class="expand-backdrop" id="expandBackdrop" hidden></div>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script src="./assets/vendor/echarts.min.js"></script>
+  <script src="./assets/vendor/algeria-geo.js"></script>
+  <script src="./assets/data/dashboard-data.js"></script>
+  <script src="./assets/js/core.js"></script>
+  <script src="./assets/js/charts.js"></script>
+  <script src="./assets/js/app.js"></script>
+</body>
+</html>
